@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sharad Kafle</title>
+</head>
+
+<body style="background-color: rgb(213, 127, 224)">
+    <input id="input">
+    <button onclick="loader()" style="color:white; background-color: rgb(218, 192, 77)">Load Data</button>
+    <p id="p"></p>
+    <img id="img" src="">
+    <script>
+        function loader() {
+            async function extractor(user) {
+                const url = 'https://api.github.com/users/' + user;
+                let promise = fetch(url);
+                let checkpoint = await promise;
+                let githubUser = await checkpoint.json();
+
+                return githubUser;
+            }
+            var myData = document.getElementById("input").value
+            extractor(myData)
+                .then((data) => {
+                    document.getElementById("input").value = "";
+                    document.getElementById("p").innerHTML = data.name + " repository = " + data.public_repos 
+                    document.getElementById("img").setAttribute("src", data.avatar_url)
+                })
+        }
+    </script>
+
+</body>
+
+
+
+
+
+</html>
